@@ -1,0 +1,52 @@
+﻿﻿@{
+	ViewData["Title"] = "City Add Edit";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model AdminPanel.Areas.LOC_City.Models.LOC_CityModel
+
+<div class="container m-3">
+	<form method="post" asp-controller="LOC_City" asp-action="LOC_CitySave">
+		<div class="form-group row">
+			<div class="col-3">
+				<h3>Enter values</h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-3 m-2">
+				<label>City Name</label>
+				<input class="form-control" style="border:1px solid" type="text" value="@Model.CityName" asp-for="CityName" />
+				<span asp-validation-for="CityName" class="text-danger"></span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-3 m-2">
+				<label>City Code</label>
+				<input class="form-control" style="border:1px solid" type="text" value="@Model.CityCode" asp-for="CityCode" />
+				<span asp-validation-for="CityCode" class="text-danger"></span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group dropdown col-3 m-2">
+				<label>Country Name</label>
+				<select class="form-control" style="border:1px solid" asp-for="CountryID" asp-items="@(new SelectList(ViewBag.CountryList,"CountryID","CountryName"))">
+					<option value="">Select Country</option>
+				</select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group dropdown col-3 m-2">
+				<label>State Name</label>
+				<select class="form-control" style="border:1px solid" asp-for="StateID" asp-items="@(new SelectList(ViewBag.StateList,"StateID","StateName"))">
+					<option value="">Select State</option>
+				</select>
+			</div>
+		</div>
+		<div class="row mt-3">
+			<div class="col-3">
+				<input type="hidden" name="CityID" value="@Model.CityID" />
+				<input type="submit" value="Save" class="submit btn btn-success" />
+			</div>
+		</div>
+	</form>
+</div>

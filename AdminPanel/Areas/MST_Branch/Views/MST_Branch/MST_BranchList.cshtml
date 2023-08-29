@@ -1,0 +1,43 @@
+﻿@{
+	ViewData["Title"] = "Branch List";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using System.Data
+@model DataTable
+<div class="container mt-5">
+	<table class="table">
+		<thead class="thead-dark bg-dark text-light">
+			<tr>
+				<th scope="col">Branch Name</th>
+				<th scope="col">Branch Code</th>
+				<th scope="col" class="text-center">Created</th>
+				<th scope="col" class="text-center">Modified</th>
+				<th scope="col" colspan="2" class="text-center">Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (DataRow dataRow in Model.Rows)
+			{
+				<tr>
+					<td>@dataRow["BranchName"]</td>
+					<td>@dataRow["BranchCode"]</td>
+					<td align="center">@Convert.ToDateTime(dataRow["Created"]).ToString("dd-MM-yyyy")</td>
+					<td align="center">@Convert.ToDateTime(dataRow["Modified"]).ToString("dd-MM-yyyy")</td>
+					<td align="right">
+						<form method="post" asp-controller="MST_Branch" asp-action="MST_BranchDelete">
+							<input type="hidden" value="@Convert.ToInt32(dataRow["BranchID"])" name="BranchID">
+							<button type="submit" class="btn btn-danger" value="Delete">Delete</button>
+						</form>
+					</td>
+					<td align="left">
+						<form method="post" asp-controller="MST_Branch" asp-action="MST_BranchAddEdit">
+							<input type="hidden" value="@Convert.ToInt32(dataRow["BranchID"])" name="BranchID">
+							<button type="submit" class="btn btn-success" value="Edit">&nbsp;&nbsp;Edit&nbsp;&nbsp;</button>
+						</form>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+	<a class="btn btn-primary" asp-action="MST_BranchAddEdit" asp-controller="MST_Branch">Add</a>
+</div>

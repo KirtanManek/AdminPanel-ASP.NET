@@ -1,0 +1,36 @@
+﻿﻿@{
+	ViewData["Title"] = "Country Add";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model AdminPanel.Areas.LOC_Country.Models.LOC_CountryModel
+
+<div class="container m-3">
+	<form method="post" asp-controller="LOC_Country" asp-action="LOC_CountrySave">
+		<div class="form-group row">
+			<div class="col-3">
+				<h3>Enter values</h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-3 m-2">
+				<label>Country Name</label>
+				<input class="form-control" style="border:1px solid" type="text" value="@Model.CountryName" asp-for="CountryName" />
+				<span asp-validation-for="CountryName" class="text-danger"></span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-3 m-2">
+				<label>Country Code</label>
+				<input class="form-control" style="border:1px solid" type="text" value="@Model.CountryCode" asp-for="CountryCode" />
+				<span asp-validation-for="CountryCode" class="text-danger"></span>
+			</div>
+		</div>
+		<div class="row mt-3">
+			<div class="col-3">
+				<input type="hidden" name="CountryID" value="@Model.CountryID" />
+				<input type="submit" value="Save" class="submit btn btn-success" />
+			</div>
+		</div>
+	</form>
+</div>

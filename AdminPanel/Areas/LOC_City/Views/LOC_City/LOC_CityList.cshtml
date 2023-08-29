@@ -1,0 +1,47 @@
+﻿@{
+	ViewData["Title"] = "City List";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using System.Data
+@model DataTable
+<div class="container mt-5">
+	<table class="table">
+		<thead class="thead-dark bg-dark text-light">
+			<tr>
+				<th scope="col">City Name</th>
+				<th scope="col">City Code</th>
+				<th scope="col">State Name</th>
+				<th scope="col">Country Name</th>
+				<th scope="col" class="text-center">Created</th>
+				<th scope="col" class="text-center">Modified</th>
+				<th scope="col" colspan="2" class="text-center">Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (DataRow dataRow in Model.Rows)
+			{
+				<tr>
+					<td>@dataRow["CityName"]</td>
+					<td>@dataRow["CityCode"]</td>
+					<td>@dataRow["StateName"]</td>
+					<td>@dataRow["CountryName"]</td>
+					<td align="center">@Convert.ToDateTime(dataRow["CreationDate"]).ToString("dd-MM-yyyy")</td>
+					<td align="center">@Convert.ToDateTime(dataRow["Modified"]).ToString("dd-MM-yyyy")</td>
+					<td align="right">
+						<form method="post" asp-controller="LOC_City" asp-action="LOC_CityDelete">
+							<input type="hidden" value="@Convert.ToInt32(dataRow["CityID"])" name="CityID">
+							<button type="submit" class="btn btn-danger" value="Delete">Delete</button>
+						</form>
+					</td>
+					<td align="left">
+						<form method="post" asp-controller="LOC_City" asp-action="LOC_CityAddEdit">
+							<input type="hidden" value="@Convert.ToInt32(dataRow["CityID"])" name="CityID">
+							<button type="submit" class="btn btn-success" value="Edit">&nbsp;&nbsp;Edit&nbsp;&nbsp;</button>
+						</form>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+	<a class="btn btn-primary" asp-area="LOC_City" asp-action="LOC_CityAddEdit" asp-controller="LOC_City">Add</a>
+</div>
