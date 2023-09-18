@@ -21,14 +21,13 @@ namespace AdminPanel.Areas.MST_Student.Controllers
 		public IActionResult MST_StudentList()
 		{
 			string connectionstr = this.Configuration.GetConnectionString("myConnectionString");
-			//Prepare a connection
-			DataTable dt = new DataTable();
 			SqlConnection conn = new SqlConnection(connectionstr);
 			conn.Open();
 			SqlCommand objCmd = conn.CreateCommand();
 			objCmd.CommandType = CommandType.StoredProcedure;
 			objCmd.CommandText = "PR_Student_SelectAll";
 			SqlDataReader objSDR = objCmd.ExecuteReader();
+			DataTable dt = new DataTable();
 			dt.Load(objSDR);
 			conn.Close();
 			return View("MST_StudentList", dt);

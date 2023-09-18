@@ -1,1 +1,108 @@
-﻿
+﻿﻿@{
+	ViewData["Title"] = "Student Add Edit";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model AdminPanel.Areas.MST_Student.Models.MST_StudentModel
+
+<div class="container m-3">
+	<form method="post" asp-controller="MST_Student" asp-action="MST_StudentSave">
+		<div class="form-group row">
+			<div class="col-3">
+				<h3>Enter values</h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-3 m-2">
+				<label>Student Name</label>
+				<input class="form-control" style="border:1px solid" type="text" value="@Model.StudentName" asp-for="StudentName" />
+				<span asp-validation-for="StudentName" class="text-danger"></span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-3 m-2">
+				<label>MobileNoStudent</label>
+				<input class="form-control" style="border:1px solid" type="text" value="@Model.MobileNoStudent" asp-for="MobileNoStudent" />
+				<span asp-validation-for="MobileNoStudent" class="text-danger"></span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-3 m-2">
+				<label>Email</label>
+				<input class="form-control" style="border:1px solid" type="text" value="@Model.Email" asp-for="Email" />
+				<span asp-validation-for="Email" class="text-danger"></span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-3 m-2">
+				<label>MobileNoFather</label>
+				<input class="form-control" style="border:1px solid" type="text" value="@Model.MobileNoFather" asp-for="MobileNoFather" />
+				<span asp-validation-for="MobileNoFather" class="text-danger"></span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-3 m-2">
+				<label>Address</label>
+				<input class="form-control" style="border:1px solid" type="text" value="@Model.Address" asp-for="Address" />
+				<span asp-validation-for="Address" class="text-danger"></span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-3 m-2">
+				<label>Birthdate</label>
+				<input class="form-control" style="border:1px solid" type="text" value="@Model.BirthDate" asp-for="BirthDate" />
+				<span asp-validation-for="BirthDate" class="text-danger"></span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-3 m-2">
+				<label>Age</label>
+				<input class="form-control" style="border:1px solid" type="text" value="@Model.Age" asp-for="Age" />
+				<span asp-validation-for="Age" class="text-danger"></span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-3 m-2">
+				<label>IsActive</label>
+				<input class="form-control" style="border:1px solid" type="text" value="@Model.IsActive" asp-for="IsActive" />
+				<span asp-validation-for="IsActive" class="text-danger"></span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-3 m-2">
+				<label>Gender</label>
+				<input class="form-control" style="border:1px solid" type="text" value="@Model.Gender" asp-for="Gender" />
+				<span asp-validation-for="Gender" class="text-danger"></span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-3 m-2">
+				<label>Password</label>
+				<input class="form-control" style="border:1px solid" type="text" value="@Model.Password" asp-for="Password" />
+				<span asp-validation-for="Password" class="text-danger"></span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group dropdown col-3 m-2">
+				<label>Branch Name</label>
+				<select class="form-control" style="border:1px solid" asp-for="BranchID" asp-items="@(new SelectList(ViewBag.BranchList,"BranchID","BranchName"))">
+					<option value="">Select Country</option>
+				</select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group dropdown col-3 m-2">
+				<label>City Name</label>
+				<select class="form-control" style="border:1px solid" asp-for="CityID" asp-items="@(new SelectList(ViewBag.CityList,"CityID","CityName"))">
+					<option value="">Select State</option>
+				</select>
+			</div>
+		</div>
+		<div class="row mt-3">
+			<div class="col-3">
+				<input type="hidden" name="StudentID" value="@Model.StudentID" />
+				<input type="submit" value="Save" class="submit btn btn-success" />
+			</div>
+		</div>
+	</form>
+</div>

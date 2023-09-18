@@ -21,21 +21,21 @@
 			@foreach (DataRow dataRow in Model.Rows)
 			{
 				<tr>
-					<td>@dataRow["CityName"]</td>
-					<td>@dataRow["CityCode"]</td>
+					<td>@dataRow["StudentName"]</td>
+					<td>@dataRow["MobileNoStudent"]</td>
 					<td>@dataRow["StateName"]</td>
 					<td>@dataRow["CountryName"]</td>
-					<td align="center">@Convert.ToDateTime(dataRow["CreationDate"]).ToString("dd-MM-yyyy")</td>
+					<td align="center">@Convert.ToDateTime(dataRow["Created"]).ToString("dd-MM-yyyy")</td>
 					<td align="center">@Convert.ToDateTime(dataRow["Modified"]).ToString("dd-MM-yyyy")</td>
 					<td align="right">
-						<form method="post" asp-controller="LOC_City" asp-action="LOC_CityDelete">
-							<input type="hidden" value="@Convert.ToInt32(dataRow["CityID"])" name="CityID">
+						<form method="post" asp-controller="MST_Student" asp-action="MST_StudentDelete">
+							<input type="hidden" value="@Convert.ToInt32(dataRow["StudentID"])" name="StudentID">
 							<button type="submit" class="btn btn-danger" value="Delete">Delete</button>
 						</form>
 					</td>
 					<td align="left">
-						<form method="post" asp-controller="LOC_City" asp-action="LOC_CityAddEdit">
-							<input type="hidden" value="@Convert.ToInt32(dataRow["CityID"])" name="CityID">
+						<form method="post" asp-controller="MST_Student" asp-action="MST_StudentAddEdit">
+							<input type="hidden" value="@Convert.ToInt32(dataRow["StudentID"])" name="StudentID">
 							<button type="submit" class="btn btn-success" value="Edit">&nbsp;&nbsp;Edit&nbsp;&nbsp;</button>
 						</form>
 					</td>
@@ -43,5 +43,5 @@
 			}
 		</tbody>
 	</table>
-	<a class="btn btn-primary" asp-area="LOC_City" asp-action="LOC_CityAddEdit" asp-controller="LOC_City">Add</a>
+	<a class="btn btn-primary" asp-area="MST_Student" asp-action="MST_StudentAddEdit" asp-controller="MST_Student">Add</a>
 </div>
