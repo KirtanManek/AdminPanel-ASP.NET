@@ -6,6 +6,15 @@
 @model AdminPanel.Areas.LOC_Country.Models.LOC_CountryModel
 
 <div class="container m-3">
+	<div class="pagetitle">
+		<h1>Country</h1>
+		<nav>
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index"><i class="bi bi-house-door"></i></a></li>
+				<li class="breadcrumb-item"><span>Country Add</span></li>
+			</ol>
+		</nav>
+	</div><!-- End Page Title -->
 	<form method="post" asp-controller="LOC_Country" asp-action="LOC_CountrySave">
 		<div class="form-group row">
 			<div class="col-3">

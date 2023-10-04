@@ -75,7 +75,8 @@ namespace AdminPanel.Areas.LOC_Country.Controllers
             }
             command.Parameters.AddWithValue("@CountryName", lOC_CountryModel.CountryName);
             command.Parameters.AddWithValue("@CountryCode", lOC_CountryModel.CountryCode);
-            command.ExecuteNonQuery();
+			command.Parameters.AddWithValue("@Modified", DateTime.Now);
+			command.ExecuteNonQuery();
             connection.Close();
             return RedirectToAction("LOC_CountryList");
         }
@@ -95,6 +96,24 @@ namespace AdminPanel.Areas.LOC_Country.Controllers
             connection.Close();
             return RedirectToAction("LOC_CountryList");
         }
-        #endregion
-    }
+		#endregion
+
+		#region Filter_LOC_Country
+		public IActionResult LOC_CountryFilter(string CountryData = "")
+		{
+			string connectionString = this.Configuration.GetConnectionString("myConnectionString");
+			SqlConnection connection = new SqlConnection(connectionString);
+			connection.Open();
+			SqlCommand command = connection.CreateCommand();
+			command.CommandType = CommandType.StoredProcedure;
+			command.CommandText = "PR_CountryFilter";
+			if (CountryData != "") command.Parameters.AddWithValue("@CountryData", CountryData);
+			SqlDataReader reader = command.ExecuteReader();
+			DataTable dataTable = new DataTable();
+			dataTable.Load(reader);
+			ModelState.Clear();
+			return View("LOC_CountryList", dataTable);
+		}
+		#endregion
+	}
 }

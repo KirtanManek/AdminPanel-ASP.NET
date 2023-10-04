@@ -25,4 +25,25 @@ namespace AdminPanel.Areas.MST_Student.Models
 		public DateTime Created { get; set; }
 		public DateTime Modified { get; set; }
 	}
+	public class MST_StudentFilterModel
+	{
+		public int? StudentID { get; set; }
+		public string? StudentName { get; set; }
+		public int? CityID { get; set; }
+		public int? BranchID { get; set; }
+	}
+
+	public class LOC_CityDropDownModel
+	{
+		public int CityID { get; set; }
+
+		public string? CityName { get; set; }
+	}
+
+	public class MST_BranchDropDownModel
+	{
+		public int BranchID { get; set; }
+
+		public string BranchName { get; set; }
+	}
 }

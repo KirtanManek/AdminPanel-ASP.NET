@@ -6,6 +6,15 @@
 @model AdminPanel.Areas.LOC_State.Models.LOC_StateModel
 
 <div class="container m-3">
+	<div class="pagetitle">
+		<h1>State</h1>
+		<nav>
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index"><i class="bi bi-house-door"></i></a></li>
+				<li class="breadcrumb-item"><span>State Add</span></li>
+			</ol>
+		</nav>
+	</div><!-- End Page Title -->
 	<form method="post" asp-controller="LOC_State" asp-action="LOC_StateSave">
 		<div class="form-group row">
 			<div class="col-3">
@@ -32,12 +41,15 @@
 				<select class="form-control" style="border:1px solid" asp-for="CountryID" asp-items="@(new SelectList(ViewBag.CountryList,"CountryID","CountryName"))">
 					<option value="">Select Country</option>
 				</select>
+				<span asp-validation-for="CountryID" class="text-danger"></span>
+				<label for="floatingSelect">Country Name</label>
 			</div>
 		</div>
 		<div class="row mt-3">
 			<div class="col-3">
 				<input type="hidden" name="StateID" value="@Model.StateID" />
-				<input type="submit" value="Save" class="submit btn btn-success" />
+				<button type="submit" class="btn btn-success">Save</button>
+				<a class="btn btn-secondary" asp-area="LOC_State" asp-controller="LOC_State" asp-action="LOC_StateList">Back</a>
 			</div>
 		</div>
 	</form>

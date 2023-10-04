@@ -6,6 +6,15 @@
 @model AdminPanel.Areas.MST_Branch.Models.MST_BranchModel
 
 <div class="container m-3">
+	<div class="pagetitle">
+		<h1>Branch</h1>
+		<nav>
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index"><i class="bi bi-house-door"></i></a></li>
+				<li class="breadcrumb-item"><span>Branch Add</span></li>
+			</ol>
+		</nav>
+	</div><!-- End Page Title -->
 	<form method="post" asp-controller="MST_Branch" asp-action="MST_BranchSave">
 		<div class="form-group row">
 			<div class="col-3">
@@ -29,7 +38,8 @@
 		<div class="row mt-3">
 			<div class="col-3">
 				<input type="hidden" name="BranchID" value="@Model.BranchID" />
-				<input type="submit" value="Save" class="submit btn btn-success" />
+				<button type="submit" class="btn btn-outline-success">Save</button>
+				<a class="btn btn-outline-secondary" asp-area="MST_Branch" asp-controller="MST_Branch" asp-action="MST_BranchList">Back</a>
 			</div>
 		</div>
 	</form>

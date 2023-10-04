@@ -20,7 +20,6 @@ namespace AdminPanel.Areas.MST_Branch.Controllers
 		public IActionResult MST_BranchList()
 		{
 			string connectionstr = this.Configuration.GetConnectionString("myConnectionString");
-			//Prepare a connection
 			DataTable dt = new DataTable();
 			SqlConnection conn = new SqlConnection(connectionstr);
 			conn.Open();
@@ -95,6 +94,25 @@ namespace AdminPanel.Areas.MST_Branch.Controllers
 			command.ExecuteNonQuery();
 			connection.Close();
 			return RedirectToAction("MST_BranchList");
+		}
+		#endregion
+
+		#region Filter_Branch
+		public IActionResult MST_BranchFilter(MST_BranchFilterModel mST_BranchFilterModel)
+		{
+			string connectionString = this.Configuration.GetConnectionString("myConnectionString");
+			SqlConnection connection = new SqlConnection(connectionString);
+			connection.Open();
+			SqlCommand command = connection.CreateCommand();
+			command.CommandType = CommandType.StoredProcedure;
+			command.CommandText = "PR_BranchFilter";
+			command.Parameters.AddWithValue("@BranchName", mST_BranchFilterModel.BranchName);
+			command.Parameters.AddWithValue("@BranchCode", mST_BranchFilterModel.BranchCode);
+			DataTable table = new DataTable();
+			SqlDataReader reader = command.ExecuteReader();
+			table.Load(reader);
+			ModelState.Clear();
+			return View("MST_BranchList", table);
 		}
 		#endregion
 	}
