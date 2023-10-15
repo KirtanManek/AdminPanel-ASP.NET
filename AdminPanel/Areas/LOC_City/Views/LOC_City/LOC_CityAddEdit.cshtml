@@ -84,7 +84,7 @@
 						success: function (Result) {
 							$.each(Result,
 								function (key, value) {
-									$("#StateID").append($("<option></option>").val(value.StateID).html(value.StateName));
+									$("#StateID").append($("<option></option>").val(value.stateID).html(value.stateName));
 								});
 						},
 						error: function (r) {
