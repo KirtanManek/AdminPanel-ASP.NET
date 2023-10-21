@@ -19,9 +19,8 @@ namespace AdminPanel.Areas.LOC_Country.Controllers
         public IActionResult LOC_CountryList()
         {
             string connectionstr = this.Configuration.GetConnectionString("myConnectionString");
-            //Prepare a connection
-            DataTable dt = new DataTable();
-            SqlConnection conn = new SqlConnection(connectionstr);
+            DataTable dt = new();
+            SqlConnection conn = new(connectionstr);
             conn.Open();
             SqlCommand objCmd = conn.CreateCommand();
             objCmd.CommandType = CommandType.StoredProcedure;
@@ -36,31 +35,31 @@ namespace AdminPanel.Areas.LOC_Country.Controllers
         public IActionResult LOC_CountryAddEdit(int CountryID = 0)
         {
             string connectionString = this.Configuration.GetConnectionString("myConnectionString");
-            SqlConnection connection = new SqlConnection(connectionString);
+            SqlConnection connection = new(connectionString);
             connection.Open();
             SqlCommand command = connection.CreateCommand();
             command.CommandType = CommandType.StoredProcedure;
             command.CommandText = "PR_Country_SelectByPK";
             command.Parameters.AddWithValue("@CountryID", CountryID);
             SqlDataReader reader = command.ExecuteReader();
-            DataTable table = new DataTable();
+            DataTable table = new();
             table.Load(reader);
-            LOC_CountryModel lOC_CountryModel = new LOC_CountryModel();
+            LOC_CountryModel loc_CountryModel = new();
             foreach (DataRow dataRow in table.Rows)
             {
-                lOC_CountryModel.CountryID = Convert.ToInt32(dataRow["CountryID"]);
-                lOC_CountryModel.CountryName = dataRow["CountryName"].ToString();
-                lOC_CountryModel.CountryCode = dataRow["CountryCode"].ToString();
+				loc_CountryModel.CountryID = Convert.ToInt32(dataRow["CountryID"]);
+				loc_CountryModel.CountryName = dataRow["CountryName"].ToString();
+				loc_CountryModel.CountryCode = dataRow["CountryCode"].ToString();
             }
-            return View("LOC_CountryAddEdit", lOC_CountryModel);
+            return View("LOC_CountryAddEdit", loc_CountryModel);
         }
         #endregion
 
         #region Save_LOC_Country
-        public IActionResult LOC_CountrySave(LOC_CountryModel lOC_CountryModel, int CountryID = 0)
+        public IActionResult LOC_CountrySave(LOC_CountryModel loc_CountryModel, int CountryID = 0)
         {
             string connectionString = this.Configuration.GetConnectionString("myConnectionString");
-            SqlConnection connection = new SqlConnection(connectionString);
+            SqlConnection connection = new(connectionString);
             connection.Open();
             SqlCommand command = connection.CreateCommand();
             command.CommandType = CommandType.StoredProcedure;
@@ -73,8 +72,8 @@ namespace AdminPanel.Areas.LOC_Country.Controllers
                 command.CommandText = "PR_Country_UpdateByPK";
                 command.Parameters.AddWithValue("@CountryID", CountryID);
             }
-            command.Parameters.AddWithValue("@CountryName", lOC_CountryModel.CountryName);
-            command.Parameters.AddWithValue("@CountryCode", lOC_CountryModel.CountryCode);
+            command.Parameters.AddWithValue("@CountryName", loc_CountryModel.CountryName);
+            command.Parameters.AddWithValue("@CountryCode", loc_CountryModel.CountryCode);
 			command.Parameters.AddWithValue("@Modified", DateTime.Now);
 			command.ExecuteNonQuery();
             connection.Close();
@@ -86,7 +85,7 @@ namespace AdminPanel.Areas.LOC_Country.Controllers
         public IActionResult LOC_CountryDelete(int CountryID)
         {
             string connectionString = this.Configuration.GetConnectionString("myConnectionString");
-            SqlConnection connection = new SqlConnection(connectionString);
+            SqlConnection connection = new(connectionString);
             connection.Open();
             SqlCommand command = connection.CreateCommand();
             command.CommandType = CommandType.StoredProcedure;
@@ -102,17 +101,17 @@ namespace AdminPanel.Areas.LOC_Country.Controllers
 		public IActionResult LOC_CountryFilter(string CountryData = "")
 		{
 			string connectionString = this.Configuration.GetConnectionString("myConnectionString");
-			SqlConnection connection = new SqlConnection(connectionString);
+			SqlConnection connection = new(connectionString);
 			connection.Open();
 			SqlCommand command = connection.CreateCommand();
 			command.CommandType = CommandType.StoredProcedure;
 			command.CommandText = "PR_CountryFilter";
 			if (CountryData != "") command.Parameters.AddWithValue("@CountryData", CountryData);
 			SqlDataReader reader = command.ExecuteReader();
-			DataTable dataTable = new DataTable();
-			dataTable.Load(reader);
-			ModelState.Clear();
-			return View("LOC_CountryList", dataTable);
+			DataTable LOC_CountryFilter_Table = new();
+			LOC_CountryFilter_Table.Load(reader);
+			//ModelState.Clear();
+			return View("LOC_CountryList", LOC_CountryFilter_Table);
 		}
 		#endregion
 	}

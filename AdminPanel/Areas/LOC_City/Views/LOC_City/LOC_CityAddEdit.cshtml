@@ -25,38 +25,34 @@
 		<div class="row">
 			<div class="col-3 m-2">
 				<label>City Name</label>
-				<input class="form-control" style="border:1px solid" type="text" value="@Model.CityName" asp-for="CityName" />
+				@Html.TextBoxFor(x => x.CityName, new { @class = "form-control", @style = "border:1px solid" })
 				<span asp-validation-for="CityName" class="text-danger"></span>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-3 m-2">
 				<label>City Code</label>
-				<input class="form-control" style="border:1px solid" type="text" value="@Model.CityCode" asp-for="CityCode" />
+				@Html.TextBoxFor(x => x.CityCode, new { @class = "form-control", @style = "border:1px solid" })
 				<span asp-validation-for="CityCode" class="text-danger"></span>
 			</div>
 		</div>
 		<div class="row">
-			<div class="form-group dropdown col-3 m-2">
+			<div class="form-group col-3 m-2">
 				<label>Country Name</label>
-				<select class="form-control" style="border:1px solid" asp-for="CountryID" asp-items="@(new SelectList(ViewBag.CountryList,"CountryID","CountryName"))" onchange="stateChange();">
-					<option value="">Select Country</option>
-				</select>
+				@Html.DropDownListFor(x => x.CountryID, new SelectList(ViewBag.CountryList, "CountryID", "CountryName"), "Select Country", new { @class = "form-control", @style = "border:1px solid", @onchange = "stateChange()", id = "CountryID" })
 				<span asp-validation-for="CountryID" class="text-danger"></span>
 			</div>
 		</div>
 		<div class="row">
-			<div class="form-group dropdown col-3 m-2">
+			<div class="form-group col-3 m-2">
 				<label>State Name</label>
-				<select class="form-control" style="border:1px solid" asp-for="StateID" asp-items="@(new SelectList(ViewBag.StateList,"StateID","StateName"))">
-					<option value="">Select State</option>
-				</select>
+				@Html.DropDownListFor(x => x.StateID, new SelectList(ViewBag.StateList, "StateID", "StateName"), "Select State", new { @class = "form-control", @style = "border:1px solid" })
 				<span asp-validation-for="StateID" class="text-danger"></span>
 			</div>
 		</div>
 		<div class="row mt-3">
 			<div class="col-3">
-				<input type="hidden" name="CityID" value="@Model.CityID" />
+				@Html.TextBoxFor(x => x.CityID, new { @class = "form-control", @style = "border:1px solid", @hidden = "hidden" })
 				<button type="submit" class="btn btn-success">Save</button>
 				<a class="btn btn-secondary" asp-area="LOC_City" asp-controller="LOC_City" asp-action="LOC_CityList">Back</a>
 			</div>
@@ -64,16 +60,13 @@
 	</form>
 </div>
 @section Scripts {
-	@{
-		await Html.RenderPartialAsync("_ValidationScriptsPartial");
-	}
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
 		function stateChange() {
 			var CountryID = $("#CountryID").val();
-
 			if (CountryID !== "") {
 				$("#StateID").empty();
-				$("#StateID").append($("<option></option>").val("").html("Select State"));
+				$("#StateID").append($("<option></option>").val("").html("SelectState"));
 				$.ajax(
 					{
 						type: "POST",
@@ -87,15 +80,18 @@
 									$("#StateID").append($("<option></option>").val(value.stateID).html(value.stateName));
 								});
 						},
-						error: function (r) {
+						error: function (err) {
+							console.log(err);
 							alert("Error while loading combobox.");
 						}
 					});
-			}
-			else {
+			} else {
 				$("#StateID").empty();
-				$("#StateID").append($("<option></option>").val("").html("Select State"));
+				$("#StateID").append($("<option></option>").val("").html("SelectState"));
 			}
 		}
 	</script>
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
 }

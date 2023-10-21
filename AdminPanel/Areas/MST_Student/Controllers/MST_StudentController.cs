@@ -68,6 +68,7 @@ namespace AdminPanel.Areas.MST_Student.Controllers
 			}
 			ViewBag.CityList = list2;
 			#endregion
+			
 			SqlConnection conn = new SqlConnection(connectionstr);
 			conn.Open();
 			SqlCommand objCmd = conn.CreateCommand();

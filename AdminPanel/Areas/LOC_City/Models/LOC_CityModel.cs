@@ -21,7 +21,7 @@ namespace AdminPanel.Areas.LOC_City.Models
 		public int CityID { get; set; }
 
 		[Required]
-		public string CityName { get; set; }
+		public string? CityName { get; set; }
 	}
 	public class LOC_CityFilterModel
 	{

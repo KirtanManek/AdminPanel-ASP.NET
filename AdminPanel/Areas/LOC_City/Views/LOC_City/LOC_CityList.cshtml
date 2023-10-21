@@ -1,14 +1,14 @@
 ﻿@{
 	ViewData["Title"] = "City List";
 	Layout = "~/Views/Shared/_Layout.cshtml";
-	LOC_CityFilterModel lOC_CityFilterModel = new LOC_CityFilterModel();
+	LOC_CityFilterModel loc_CityFilterModel = new LOC_CityFilterModel();
 }
 @using System.Data
 @model DataTable
 @using AdminPanel.Areas.LOC_City.Models;
 <div class="container mt-5">
 	<div class="pagetitle">
-		<h1>State</h1>
+		<h1>City</h1>
 		<nav>
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index"><i class="bi bi-house-door"></i></a></li>
@@ -16,43 +16,50 @@
 			</ol>
 		</nav>
 	</div><!-- End Page Title -->
-	<!-- BEGIN EXAMPLE TABLE PORTLET-->
 	<div class="m-2">
 		<form class="row g-3">
-			<div class="col-md-4">
-				<div class="form-floating mb-3">
-					<select class="form-control" asp-for="@lOC_CityFilterModel.CountryID" asp-items="@(new SelectList(ViewBag.CountryList,"CountryID","CountryName"))" onChange="stateChange();">
+			<div class="col-md-6">
+				<div class="form-floating dropdown mb-3">
+					<select class="form-control" asp-for="@loc_CityFilterModel.CountryID" asp-items="@(new SelectList(ViewBag.CountryList,"CountryID","CountryName"))" onChange="stateChange()">
 						<option value="">Select Country</option>
 					</select>
-					<span asp-validation-for="@lOC_CityFilterModel.CountryID" class="text-danger"></span>
+					<span asp-validation-for="@loc_CityFilterModel.CountryID" class="text-danger"></span>
 					<label for="floatingSelect">Country</label>
 				</div>
 			</div>
-			<div class="col-md-4">
-				<div class="form-floating mb-3">
-					<select class="form-control" asp-for="@lOC_CityFilterModel.StateID" asp-items="@(new SelectList(ViewBag.StateList,"StateID","StateName"))">
+			<div class="col-md-6">
+				<div class="form-floating dropdown mb-3">
+					<select class="form-control" asp-for="@loc_CityFilterModel.StateID" asp-items="@(new SelectList(ViewBag.StateList,"StateID","StateName"))">
 						<option value="">Select State</option>
 					</select>
-					<span asp-validation-for="@lOC_CityFilterModel.StateID" class="text-danger"></span>
-					<label for="floatingSelect">Country</label>
+					<span asp-validation-for="@loc_CityFilterModel.StateID" class="text-danger"></span>
+					<label for="floatingSelect">State</label>
 				</div>
 			</div>
-			<div class="col-md-4">
+			<div class="col-md-6">
 				<div class="form-floating">
-					<input type="text" class="form-control input-sm input-small input-inline" placeholder="CityName" asp-for="@lOC_CityFilterModel.CityName">
+					<input type="text" class="form-control input-sm input-small input-inline" placeholder="CityName" asp-for="@loc_CityFilterModel.CityName">
 					<label for="floatingZip">City Name</label>
 				</div>
 			</div>
-			<div class="col-md-4">
+			<div class="col-md-6">
 				<div class="form-floating">
-					<input type="text" class="form-control input-sm input-small input-inline" placeholder="CityCode" asp-for="@lOC_CityFilterModel.CityCode">
+					<input type="text" class="form-control input-sm input-small input-inline" placeholder="CityCode" asp-for="@loc_CityFilterModel.CityCode">
 					<label for="floatingZip">City Code</label>
 				</div>
 			</div>
-			<div class="d-flex justify-content-between align-items-center">
-				<div class="text-right">
-					<button type="submit" class="btn btn-success" asp-area="LOC_City" asp-controller="LOC_City" asp-action="LOC_CityFilter">Submit</button>
-					<button type="submit" runat="server" OnClientClick="this.form.reset();return false;" class="btn btn-secondary">Reset</button>
+			<div class="justify-content-between align-items-center">
+				<div class="text-center">
+					<table width="100%">
+						<tr>
+							<td align="right">
+								<button type="submit" class="btn btn-success" asp-area="LOC_City" asp-controller="LOC_City" asp-action="LOC_CityFilter">Submit</button>
+							</td>
+							<td align="left">
+								<button type="submit" runat="server" OnClientClick="this.form.reset();return false;" class="btn btn-secondary">&nbsp;&nbsp;Reset&nbsp;&nbsp;</button>
+							</td>
+						</tr>
+					</table>
 				</div>
 			</div>
 		</form>
@@ -97,15 +104,14 @@
 	</table>
 	<a class="btn btn-primary" asp-area="LOC_City" asp-action="LOC_CityAddEdit" asp-controller="LOC_City">Add</a>
 </div>
-@section Scripts
-	{
+@section Scripts {
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
 		function stateChange() {
 			var CountryID = $("#CountryID").val();
-
 			if (CountryID !== "") {
 				$("#StateID").empty();
-				$("#StateID").append($("<option></option>").val("").html("Select State"));
+				$("#StateID").append($("<option></option>").val("").html("SelectState"));
 				$.ajax(
 					{
 						type: "POST",
@@ -119,15 +125,19 @@
 									$("#StateID").append($("<option></option>").val(value.stateID).html(value.stateName));
 								});
 						},
-						error: function (r) {
+						error: function (err) {
+							console.log(err);
 							alert("Error while loading combobox.");
 						}
 					});
-			}
-			else {
+			} else {
 				$("#StateID").empty();
-				$("#StateID").append($("<option></option>").val("").html("Select State"));
+				$("#StateID").append($("<option></option>").val("").html("SelectState"));
 			}
 		}
+
 	</script>
-    }
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}

@@ -36,13 +36,13 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="form-group dropdown col-3 m-2">
-				<label>Country Name</label>
-				<select class="form-control" style="border:1px solid" asp-for="CountryID" asp-items="@(new SelectList(ViewBag.CountryList,"CountryID","CountryName"))">
-					<option value="">Select Country</option>
-				</select>
-				<span asp-validation-for="CountryID" class="text-danger"></span>
+			<div class="form-group col-3 m-2">
 				<label for="floatingSelect">Country Name</label>
+				@* <select class="form-control" style="border:1px solid" asp-for="CountryID" asp-items="@(new SelectList(ViewBag.CountryList,"CountryID","CountryName"))">
+				<option value="">Select Country</option>
+				</select> *@
+				@Html.DropDownListFor(m => m.CountryID, new SelectList(ViewBag.CountryList, "CountryID", "CountryName"), "Select Country", new { @class = "form-control" })
+				<span asp-validation-for="CountryID" class="text-danger"></span>
 			</div>
 		</div>
 		<div class="row mt-3">
