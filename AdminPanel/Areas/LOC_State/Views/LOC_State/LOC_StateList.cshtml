@@ -1,7 +1,7 @@
 ﻿@{
 	ViewData["Title"] = "State List";
 	Layout = "~/Views/Shared/_Layout.cshtml";
-	LOC_StateFilterModel LOC_StateFilterModel = new LOC_StateFilterModel();
+	LOC_StateFilterModel loc_StateFilterModel = new LOC_StateFilterModel();
 }
 @using System.Data
 @model DataTable
@@ -20,29 +20,43 @@
 		<form class="row g-3">
 			<div class="col-md-4">
 				<div class="form-floating mb-3">
-					<select class="form-select" id="floatingSelect" aria-label="Country" asp-for="@LOC_StateFilterModel.CountryID" asp-items="@(new SelectList(ViewBag.CountryList,"CountryID","CountryName"))">
+					<select class="form-select" id="floatingSelect" aria-label="Country" asp-for="@loc_StateFilterModel.CountryID" asp-items="@(new SelectList(ViewBag.CountryList,"CountryID","CountryName"))">
 						<option value="">Select Country</option>
 					</select>
-					<span asp-validation-for="@LOC_StateFilterModel.CountryID" class="text-danger"></span>
+					<span asp-validation-for="@loc_StateFilterModel.CountryID" class="text-danger"></span>
 					<label for="floatingSelect">Country</label>
 				</div>
 			</div>
 			<div class="col-md-4">
 				<div class="form-floating">
-					<input type="text" class="form-control" id="floatingZip" placeholder="StateName" asp-for="@LOC_StateFilterModel.StateName">
+					<input type="text" class="form-control" id="floatingZip" placeholder="StateName" asp-for="@loc_StateFilterModel.StateName">
 					<label for="floatingZip">State Name</label>
 				</div>
 			</div>
 			<div class="col-md-4">
 				<div class="form-floating">
-					<input type="text" class="form-control" id="floatingZip" placeholder="StateCode" asp-for="@LOC_StateFilterModel.StateCode">
+					<input type="text" class="form-control" id="floatingZip" placeholder="StateCode" asp-for="@loc_StateFilterModel.StateCode">
 					<label for="floatingZip">State Code</label>
 				</div>
 			</div>
-			<div class="d-flex justify-content-between align-items-center">
+			@* <div class="d-flex justify-content-between align-items-center">
 				<div class="text-right">
 					<button type="submit" class="btn btn-success" asp-area="LOC_State" asp-controller="LOC_State" asp-action="LOC_StateFilter">Submit</button>
 					<button type="submit" runat="server" OnClientClick="this.form.reset();return false;" class="btn btn-secondary">Reset</button>
+				</div>
+			</div> *@
+			<div class="justify-content-between align-items-center">
+				<div class="text-center">
+					<table width="100%">
+						<tr>
+							<td align="right">
+								<button type="submit" class="btn btn-success" asp-area="LOC_State" asp-controller="LOC_State" asp-action="LOC_StateFilter">Submit</button>
+							</td>
+							<td align="left">
+								<button type="submit" runat="server" OnClientClick="this.form.reset();return false;" class="btn btn-secondary">&nbsp;&nbsp;Reset&nbsp;&nbsp;</button>
+							</td>
+						</tr>
+					</table>
 				</div>
 			</div>
 		</form>

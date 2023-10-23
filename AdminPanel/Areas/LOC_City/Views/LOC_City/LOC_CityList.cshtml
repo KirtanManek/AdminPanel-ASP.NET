@@ -20,7 +20,7 @@
 		<form class="row g-3">
 			<div class="col-md-6">
 				<div class="form-floating dropdown mb-3">
-					<select class="form-control" asp-for="@loc_CityFilterModel.CountryID" asp-items="@(new SelectList(ViewBag.CountryList,"CountryID","CountryName"))" onChange="stateChange()">
+					<select class="form-control" asp-for="@loc_CityFilterModel.CountryID" id="CountryID" asp-items="@(new SelectList(ViewBag.CountryList,"CountryID","CountryName"))" onchange="stateChange()">
 						<option value="">Select Country</option>
 					</select>
 					<span asp-validation-for="@loc_CityFilterModel.CountryID" class="text-danger"></span>
@@ -29,7 +29,7 @@
 			</div>
 			<div class="col-md-6">
 				<div class="form-floating dropdown mb-3">
-					<select class="form-control" asp-for="@loc_CityFilterModel.StateID" asp-items="@(new SelectList(ViewBag.StateList,"StateID","StateName"))">
+					<select class="form-control" asp-for="@loc_CityFilterModel.StateID" id="StateID" asp-items="@(new SelectList(ViewBag.StateList,"StateID","StateName"))">
 						<option value="">Select State</option>
 					</select>
 					<span asp-validation-for="@loc_CityFilterModel.StateID" class="text-danger"></span>
@@ -111,7 +111,7 @@
 			var CountryID = $("#CountryID").val();
 			if (CountryID !== "") {
 				$("#StateID").empty();
-				$("#StateID").append($("<option></option>").val("").html("SelectState"));
+				$("#StateID").append($("<option></option>").val("").html("Select State"));
 				$.ajax(
 					{
 						type: "POST",
