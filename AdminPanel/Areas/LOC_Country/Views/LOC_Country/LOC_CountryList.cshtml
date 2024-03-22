@@ -6,6 +6,7 @@
 @using System.Data
 @model DataTable
 @using AdminPanel.Areas.LOC_Country.Models;
+
 <div class="container mt-5">
 	<div class="pagetitle">
 		<h1>Country</h1>
@@ -16,7 +17,11 @@
 			</ol>
 		</nav>
 	</div><!-- End Page Title -->
-	<div class="m-2">
+	<!--begin::Search filter partial view-->
+	<partial name="_SearchCountry" model="loc_CountryFilterModel" />
+	<!--end::Search filter partial view-->
+	<!--begin::Search filter-->
+	@* <div class="m-2">
 		<form class="row g-3" method="POST" asp-area="LOC_Country" asp-controller="LOC_Country" asp-action="LOC_CountryFilter">
 			<div class="col-md-6">
 				<div class="form-floating">
@@ -45,7 +50,8 @@
 				</div>
 			</div>
 		</form>
-	</div>
+	</div> *@
+	<!--begin::Search filter-->
 	<table class="table">
 		<thead class="thead-dark bg-dark text-light">
 			<tr>

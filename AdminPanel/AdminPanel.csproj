@@ -14,4 +14,8 @@
     <PackageReference Include="System.Runtime.Serialization.Json" Version="4.3.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\LOC_Country\Views\LOC_Country\Shared\" />
+  </ItemGroup>
+
 </Project>
